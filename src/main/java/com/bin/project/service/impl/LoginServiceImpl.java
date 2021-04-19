@@ -34,6 +34,8 @@ public class LoginServiceImpl implements LoginService {
         BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
 
         if (!passwordEncoder.matches(password,detailsPassword)) {
+            //todo
+            //添加统一异常处理类  处理
             throw new RuntimeException(FAILURE);
         }
         return userInfo;

@@ -3,6 +3,7 @@ package com.bin.project.controller;
 import cn.hutool.core.util.IdUtil;
 import com.bin.common.Result;
 import com.bin.common.util.JwtTokenUtil;
+import com.bin.common.util.JwtUtil;
 import com.bin.common.util.RedisUtil;
 import com.bin.framework.sercurity.UserInfo;
 import com.bin.project.pojo.param.LoginParam;
@@ -87,7 +88,8 @@ public class LoginController {
     private Result getLoginResult(HttpServletRequest request, HttpServletResponse response, UserInfo userInfo) {
         Map<String, Object> map = new HashMap<>(16);
         map.put("id", String.valueOf(userInfo.getId()));
-        // 生成token
+        // 签发token
+        //String jwtToken = JwtUtil.generateToken(userInfo.getUsername(), expireTime, map);
         String jwtToken = JwtTokenUtil.generateToken(userInfo.getUsername(), expireTime, map);
         redisUtil.setTokenRefresh(jwtToken);
         // 将token放入header返回，Access-Control-Expose-Headers解决自定义请求头前端获取不到的问题

@@ -23,6 +23,8 @@ public class UserInfo extends SysUser implements UserDetails, Serializable {
         return this.authorities;
     }
 
+    //todo
+    //查询并设置权限
     public void setAuthorities(Set<? extends GrantedAuthority> authorities) {
         this.authorities = authorities;
     }

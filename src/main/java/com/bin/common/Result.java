@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.HashMap;
 
 /**
- * @description 操作消息提醒
+ * @description 返回结果统一处理类
  *
  * @author Administrator
  * @date 2020/9/22 11:41 上午

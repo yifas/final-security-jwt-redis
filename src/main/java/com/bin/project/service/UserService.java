@@ -11,4 +11,7 @@ public interface UserService {
     SysUser findByUsername(String username);
 
     List<String> findRoleByUsername(String username);
+
+    List<SysUser> findUserList();
+
 }

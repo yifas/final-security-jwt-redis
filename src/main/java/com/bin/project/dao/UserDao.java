@@ -20,4 +20,10 @@ public interface UserDao {
      * @return
      */
     List<String> findRoleByUsername(@Param("username") String username);
+
+    /**
+     * 查询所有用户
+     * @return
+     */
+    List<SysUser> findUserList();
 }

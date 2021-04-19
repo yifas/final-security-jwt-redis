@@ -13,9 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -46,9 +44,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return new User(result.getUsername(),result.getPassword(),list);*/
             UserInfo userInfo = new UserInfo();
             BeanUtils.copyProperties(result, userInfo);
+
+            HashSet<GrantedAuthority> set = new HashSet<>();
+            //List<GrantedAuthority> list = new ArrayList<>();
             for (String s : roleList) {
-                userInfo.setAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_"+s)));
+                set.add(new SimpleGrantedAuthority("ROLE_"+s));
             }
+            userInfo.setAuthorities(set);
             return userInfo;
         }
     }

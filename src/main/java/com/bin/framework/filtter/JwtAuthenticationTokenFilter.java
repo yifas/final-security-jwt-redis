@@ -54,11 +54,19 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             if (redisUtil.hasKey(TOKEN_PREFIX + authToken)) {
                 // 判断redis是否有保存
                 String expireTime = redisUtil.hget(TOKEN_PREFIX + authToken, "expireTime").toString();
-                if (JwtUtil.isExpiration(expireTime)) {
+                //判断是否已过期
+                if (JwtTokenUtil.isExpiration(expireTime)) {
                     //获得redis中用户的token刷新时效
                     String refreshTime = (String) redisUtil.getTokenRefreshTime(TOKEN_PREFIX + authToken);
                     String currentTime = DateUtil.getTime();
-                    String id = JwtUtil.parseToken(authToken);
+                    String id = JwtTokenUtil.parseToken(authToken);
+                /*    String id = null;
+                    try {
+                        id = JwtUtil.parseJWT(authToken).getSubject();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }*/
+
                     if (DateUtil.compareDate(currentTime, refreshTime)) {
                         // 超过有效期，不予刷新
                         log.info("{}已超过有效期，不予刷新", authToken);
@@ -72,7 +80,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                         // 仍在刷新时间内，则刷新token，放入请求头中
                         Map<String, Object> map = new HashMap<>(16);
                         map.put("id", id);
-                        String jwtToken = JwtUtil.generateToken(id, this.expireTime, map);
+                        String jwtToken = JwtTokenUtil.generateToken(id, this.expireTime, map);
                         // 更新token
                         redisUtil.setTokenRefresh(jwtToken);
                         log.info("redis更新token: 旧token: {}, 新token: {}", authToken, jwtToken);
@@ -84,7 +92,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                     }
                 }
             }
-            String username = JwtUtil.parseToken(authToken);
+            String username = JwtTokenUtil.parseToken(authToken);
+         /*   String username = null;
+            try {
+                username = JwtUtil.parseJWT(authToken).getSubject();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }*/
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 if (userDetails != null) {

@@ -11,8 +11,15 @@
     </select>
 
     <select id="findRoleByUsername" resultType="java.lang.String">
-        select role_name from sys_role where id=(SELECT role_id from sys_user_role where user_id=(SELECT id FROM `sys_user` where username="admin"));
+        SELECT
+        	role_name
+        FROM
+        	sys_role
+        WHERE
+        	id IN ( SELECT role_id FROM sys_user_role WHERE user_id = ( SELECT id FROM `sys_user` WHERE username = #{username}) );
+	 </select>
+
+    <select id="findUserList" resultType="com.bin.project.pojo.SysUser">
+        SELECT * FROM sys_user
     </select>
-
-
 </mapper>

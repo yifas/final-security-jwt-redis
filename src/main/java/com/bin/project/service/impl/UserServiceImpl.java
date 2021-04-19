@@ -23,4 +23,9 @@ public class UserServiceImpl implements UserService {
     public List<String> findRoleByUsername(String username) {
         return userDao.findRoleByUsername(username);
     }
+
+    @Override
+    public List<SysUser> findUserList() {
+        return userDao.findUserList();
+    }
 }
