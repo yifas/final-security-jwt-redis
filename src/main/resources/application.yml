@@ -1,0 +1,20 @@
+
+server:
+  port: 8090
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/security?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+token:
+  refreshTime: 88200
+  expireTime: 1

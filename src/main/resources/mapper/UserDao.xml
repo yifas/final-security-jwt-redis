@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bin.project.dao.UserDao">
+    <!--  <select id="findByWords" resultType="com.bin.pojo.EnWords">
+          SELECT * FROM EnWords where word like concat(#{words},'%')
+      </select>-->
+
+    <select id="findByUsername" resultType="com.bin.project.pojo.SysUser">
+        SELECT * FROM sys_user where username = #{username}
+    </select>
+
+    <select id="findRoleByUsername" resultType="java.lang.String">
+        select role_name from sys_role where id=(SELECT role_id from sys_user_role where user_id=(SELECT id FROM `sys_user` where username="admin"));
+    </select>
+
+
+</mapper>
