@@ -91,6 +91,8 @@ public class LoginController {
         // 签发token
         //String jwtToken = JwtUtil.generateToken(userInfo.getUsername(), expireTime, map);
         String jwtToken = JwtTokenUtil.generateToken(userInfo.getUsername(), expireTime, map);
+        //todo
+        //将Token存储到redis中
         redisUtil.setTokenRefresh(jwtToken);
         // 将token放入header返回，Access-Control-Expose-Headers解决自定义请求头前端获取不到的问题
         response.setHeader("Access-Control-Expose-Headers", "Authorization");

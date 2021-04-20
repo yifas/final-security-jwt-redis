@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 无权访问
+ * 无权访问的JSON返回
  */
 @Component
 public class AjaxAccessDeniedHandler implements AccessDeniedHandler {

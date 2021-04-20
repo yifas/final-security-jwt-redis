@@ -30,9 +30,8 @@ public class LoginServiceImpl implements LoginService {
         UserInfo userInfo = (UserInfo) userDetailsService.loadUserByUsername(username);
         //checkRole(userInfo.getRole(), loginParam.getRole());
         String detailsPassword = userInfo.getPassword();
-        //密码加密
+        //密码验证
         BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
-
         if (!passwordEncoder.matches(password,detailsPassword)) {
             //todo
             //添加统一异常处理类  处理

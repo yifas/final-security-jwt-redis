@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 用户未登录时返回给前端的数据
+ * 用户未登录时返回给前端的数据JSON
  *
  * @author Administrator
  */

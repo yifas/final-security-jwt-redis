@@ -18,6 +18,8 @@ import java.util.*;
 
 /**
  * 用于实现自定义的登录逻辑
+ * 获取保存在服务端的用户信息类
+ * Spring Security 提供的 UserDetailsService有一个通过名字返回 Spring Security 可用于身份验证的UserDetails对象的方法：loadUserByUsername()。
  */
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -42,6 +44,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             }
             //交给框架比较密码 org.springframework.security.core.userdetails.User;
             return new User(result.getUsername(),result.getPassword(),list);*/
+            //该方法需要返回UserDetails的对象 所以创建了UserInfo实现了UserDetails
             UserInfo userInfo = new UserInfo();
             BeanUtils.copyProperties(result, userInfo);
 

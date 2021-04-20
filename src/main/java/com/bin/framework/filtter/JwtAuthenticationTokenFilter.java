@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -99,11 +100,16 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             } catch (Exception e) {
                 e.printStackTrace();
             }*/
+         //subject内容不为空 但是框架中无权限信息  重新走登录逻辑
+            Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                //todo ？相当于重新查询了一遍权限
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 if (userDetails != null) {
+                    //框架验证token
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    //设置权限信息到Security框架中
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }else {

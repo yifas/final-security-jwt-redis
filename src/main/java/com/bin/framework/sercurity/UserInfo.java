@@ -9,8 +9,9 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- * 定义user对象
- *
+ * 定义UserInfo对象，用于loadUserByUsername的返回
+ * extends SysUser  用于封装user数据
+ * implements UserDetails   用于 public UserDetails loadUserByUsername(String username)方法返回
  */
 public class UserInfo extends SysUser implements UserDetails, Serializable {
 
