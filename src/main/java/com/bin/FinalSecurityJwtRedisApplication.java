@@ -10,6 +10,7 @@ public class FinalSecurityJwtRedisApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FinalSecurityJwtRedisApplication.class, args);
+
     }
 
 }

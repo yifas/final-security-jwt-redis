@@ -29,6 +29,7 @@ import static com.bin.common.constant.LoginConstant.SUCCESS;
  * @date 2020/9/22 3:30 下午
  */
 @RestController
+@RequestMapping("/user")
 public class LoginController {
     @Autowired
     private LoginService loginService;
@@ -49,7 +50,7 @@ public class LoginController {
      * @param response /
      * @return
      */
-    @PostMapping("/login")
+    @RequestMapping (value = "/login",method = RequestMethod.POST)
     public Result login(@RequestBody @Validated LoginParam loginParam,
                         HttpServletRequest request, HttpServletResponse response) {
         UserInfo userInfo = loginService.login(loginParam);
