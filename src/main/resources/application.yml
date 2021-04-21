@@ -10,6 +10,8 @@ spring:
 
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
+  configuration:  #开启驼峰命名
+    map-underscore-to-camel-case: true
 
   redis:
     host: 127.0.0.1
@@ -18,3 +20,6 @@ mybatis:
 token:
   refreshTime: 88200
   expireTime: 1
+logging:
+  level:
+    com.bin.project.dao: debug

@@ -22,4 +22,25 @@
     <select id="findUserList" resultType="com.bin.project.pojo.SysUser">
         SELECT * FROM sys_user
     </select>
+
+    <select id="findRole" resultType="com.bin.project.pojo.Role">
+       select
+        sr.*
+        from sys_user  su
+        left join sys_user_role sur
+        on su.id=sur.user_id
+        left join sys_role sr
+        on sr.id = sur.role_id
+        where su.username=#{username};
+    </select>
+
+    <select id="findAuth" resultType="com.bin.project.pojo.Auth">
+        select
+            sa.*
+            from sys_auth sa
+            left join sys_role_auth sra
+            on sa.id=sra.auth_id
+            where sra.role_id=#{id}
+
+    </select>
 </mapper>
