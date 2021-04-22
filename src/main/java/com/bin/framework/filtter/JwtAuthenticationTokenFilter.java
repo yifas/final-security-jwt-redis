@@ -101,7 +101,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 e.printStackTrace();
             }*/
          //subject内容不为空 但是框架中无权限信息  重新走登录逻辑
-            Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
+            //Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 //todo ？相当于重新查询了一遍权限
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
